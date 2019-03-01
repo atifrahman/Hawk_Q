@@ -1,15 +1,11 @@
-# HAWK
-Hitting associations with k-mers
+# HAWK_Q
+Hitting associations with k-mers for quantitaive phenotypes
+
+This is an extension of HAWK
 
 ## Installation
 
-To install HAWK run (X.Y.Z is the version)
-
-```
-tar xf hawk-X.Y.Z-beta.tar
-cd hawk-X.Y.Z-beta
-make
-```
+The work is ongoing. This will be updated when the work is finished.
 
 ## Prerequisites
 
@@ -23,6 +19,8 @@ ABYSS
 
 GNU `sort` with parallel support
 
+Perl
+
 ## Counting k-mers
 
 The first step in the pipeline is to count k-mers in each sample, find 
@@ -35,7 +33,7 @@ by a space. The integer representation is given by using 0 for 'A',
 k-mer counting can be done using a modified version of the tool JELLYFISH
 provided in the 'supplements' folder with HAWK. All of the steps mentioned 
 above can be performed by installing this version of JELLYFISH and then 
-running the script 'countKmers' in supplements with necessary modifications.
+running the script 'q_countKmers' in supplements with necessary modifications. Note that: Perl should be installed.
 
 The version provided assumes reads from each sample is in a separate directory 
 and prefixes of all directories containing reads is `Reads`. For example reads from
@@ -48,6 +46,8 @@ This will write the names of sorted k-mer count files in 'sorted_files.txt'
 and total k-mer count in samples in 'total_kmer_counts.txt'.
 
 ## Running HAWK
+
+[This part will undergo change]
 
 Copy 'sorted_files.txt' and 'total_kmer_counts.txt' corresponding to the samples 
 into a folder as well as a file named 'gwas_info.txt' containing three columns separated by tabs giving a sample ID, male/female/unknown denoted by M/F/U and Case/Control status of the sample for each sample. For example

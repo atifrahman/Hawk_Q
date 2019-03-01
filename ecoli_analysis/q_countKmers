@@ -1,0 +1,80 @@
+#!/bin/bash
+CORES=2 #number of cores to use for blast searches
+KMERSIZE=31 # RD:61
+
+#modified from NIKS script
+
+dir=/media/dmehrab06/Workplace/ms_thesis/Ongoing_Work/Atif_Sir/HAWK_Q/dataset/Dataset/ncbi-genomes-2019-02-19		#directory for read files 
+hawkDir=/media/dmehrab06/Workplace/ms_thesis/Ongoing_Work/Atif_Sir/HAWK_Q			#directory where hawk is installed
+jellyfishDir=/media/dmehrab06/Workplace/ms_thesis/Ongoing_Work/Atif_Sir/HAWK_Q/supplements/jellyfish-Hawk/bin		#directory where jellyfish is installed
+#sortDir=/home/atif/coreutils/deps/bin		#directory where parallel sort is installed
+
+cd ${dir}
+
+#mkdir fastq
+
+for f in *.fna.gz; do
+
+	#echo $f;
+
+	engrampa -h $f
+
+	file=$(echo "$f" | cut -f 1 -d '.')
+	
+	#echo $file
+
+	perl fasta_to_fastq.pl *.fna >${file}.fastq
+
+	OUTPREFIX=$file
+	
+	mkdir ${file}
+
+	mv ${file}.fastq ${file}
+	
+	cd ${file}
+
+	mkdir ${OUTPREFIX}_kmers
+
+	${jellyfishDir}/jellyfish count -C -o ${OUTPREFIX}_kmers/tmp -m ${KMERSIZE} -t ${CORES} -s 256M *.fastq 	#change if gzipped
+
+	COUNT=$(ls ${OUTPREFIX}_kmers/tmp* |wc -l)
+
+	if [ $COUNT -eq 1 ]
+	then
+ 		mv ${OUTPREFIX}_kmers/tmp_0 ${OUTPREFIX}_kmers_jellyfish
+	else
+		${jellyfishDir}/jellyfish merge -o ${OUTPREFIX}_kmers_jellyfish ${OUTPREFIX}_kmers/tmp*
+	fi
+	rm -rf ${OUTPREFIX}_kmers
+	
+	COUNT=$(ls ${OUTPREFIX}_kmers_jellyfish |wc -l)
+
+	if [ $COUNT -eq 1 ]
+	then
+
+		${jellyfishDir}/jellyfish histo -f -o ${OUTPREFIX}.kmers.hist.csv -t ${CORES} ${OUTPREFIX}_kmers_jellyfish
+		awk '{print $2"\t"$1}' ${OUTPREFIX}.kmers.hist.csv > ${OUTPREFIX}_tmp
+		mv ${OUTPREFIX}_tmp ${OUTPREFIX}.kmers.hist.csv
+
+		awk -f ${hawkDir}/countTotalKmer.awk ${OUTPREFIX}.kmers.hist.csv >> ${dir}/total_kmer_counts.txt
+
+		CUTOFF=1 
+		echo $CUTOFF > ${OUTPREFIX}_cutoff.csv
+
+
+		${jellyfishDir}/jellyfish dump -c -L `expr $CUTOFF + 1` ${OUTPREFIX}_kmers_jellyfish > ${OUTPREFIX}_kmers.txt 
+		sort --parallel=${CORES} -n -k 1 ${OUTPREFIX}_kmers.txt > ${OUTPREFIX}_kmers_sorted.txt
+	
+		rm ${OUTPREFIX}_kmers_jellyfish	
+		rm ${OUTPREFIX}_kmers.txt		
+			
+		echo "${dir}/${OUTPREFIX}/${OUTPREFIX}_kmers_sorted.txt" >> ${dir}/sorted_files.txt
+		
+	fi
+
+	cd ..
+
+	rm *.fna;
+
+done
+

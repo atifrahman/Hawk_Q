@@ -5,10 +5,3 @@
 /media/dmehrab06/Workplace/ms_thesis/Ongoing_Work/Atif_Sir/HAWK_Q/dataset/Dataset/ncbi-genomes-2019-02-19/GCF_003628865/GCF_003628865_kmers_sorted.txt
 /media/dmehrab06/Workplace/ms_thesis/Ongoing_Work/Atif_Sir/HAWK_Q/dataset/Dataset/ncbi-genomes-2019-02-19/GCF_003628875/GCF_003628875_kmers_sorted.txt
 /media/dmehrab06/Workplace/ms_thesis/Ongoing_Work/Atif_Sir/HAWK_Q/dataset/Dataset/ncbi-genomes-2019-02-19/GCF_003628905/GCF_003628905_kmers_sorted.txt
-/media/dmehrab06/Workplace/ms_thesis/Ongoing_Work/Atif_Sir/HAWK_Q/dataset/Dataset/ncbi-genomes-2019-02-19/GCF_003628795/GCF_003628795_kmers_sorted.txt
-/media/dmehrab06/Workplace/ms_thesis/Ongoing_Work/Atif_Sir/HAWK_Q/dataset/Dataset/ncbi-genomes-2019-02-19/GCF_003628805/GCF_003628805_kmers_sorted.txt
-/media/dmehrab06/Workplace/ms_thesis/Ongoing_Work/Atif_Sir/HAWK_Q/dataset/Dataset/ncbi-genomes-2019-02-19/GCF_003628835/GCF_003628835_kmers_sorted.txt
-/media/dmehrab06/Workplace/ms_thesis/Ongoing_Work/Atif_Sir/HAWK_Q/dataset/Dataset/ncbi-genomes-2019-02-19/GCF_003628855/GCF_003628855_kmers_sorted.txt
-/media/dmehrab06/Workplace/ms_thesis/Ongoing_Work/Atif_Sir/HAWK_Q/dataset/Dataset/ncbi-genomes-2019-02-19/GCF_003628865/GCF_003628865_kmers_sorted.txt
-/media/dmehrab06/Workplace/ms_thesis/Ongoing_Work/Atif_Sir/HAWK_Q/dataset/Dataset/ncbi-genomes-2019-02-19/GCF_003628875/GCF_003628875_kmers_sorted.txt
-/media/dmehrab06/Workplace/ms_thesis/Ongoing_Work/Atif_Sir/HAWK_Q/dataset/Dataset/ncbi-genomes-2019-02-19/GCF_003628905/GCF_003628905_kmers_sorted.txt

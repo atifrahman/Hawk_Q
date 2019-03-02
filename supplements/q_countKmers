@@ -1,3 +1,4 @@
+#!/bin/bash
 CORES=2 #number of cores to use for blast searches
 KMERSIZE=31 # RD:61
 
@@ -10,25 +11,31 @@ jellyfishDir=/media/dmehrab06/Workplace/ms_thesis/Ongoing_Work/Atif_Sir/HAWK_Q/s
 
 cd ${dir}
 
-for file in *.fna.gz; do
-	echo $f;
-    # do some stuff here with "$f"
-    # remember to quote it or spaces may misbehave
-done
+#mkdir fastq
 
-for file in `cat links.txt*`
-do
+for f in *.fna.gz; do
+
+	#echo $f;
+
+	engrampa -h $f
+
+	file=$(echo "$f" | cut -f 1 -d '.')
+	
+	#echo $file
+
+	perl fasta_to_fastq.pl *.fna >${file}.fastq
+
 	OUTPREFIX=$file
 	
 	mkdir ${file}
+
+	mv ${file}.fastq ${file}
 	
 	cd ${file}
 
-	fastq-dump /home/atif/ncbi/sra/${file}.sra
-
 	mkdir ${OUTPREFIX}_kmers
 
-	${jellyfishDir}/jellyfish count -C -o ${OUTPREFIX}_kmers/tmp -m ${KMERSIZE} -t ${CORES} -s 128M *.fastq 	#change if gzipped
+	${jellyfishDir}/jellyfish count -C -o ${OUTPREFIX}_kmers/tmp -m ${KMERSIZE} -t ${CORES} -s 256M *.fastq 	#change if gzipped
 
 	COUNT=$(ls ${OUTPREFIX}_kmers/tmp* |wc -l)
 
@@ -65,9 +72,9 @@ do
 		
 	fi
 
-	rm *.fastq
-
 	cd ..
+
+	rm *.fna;
 
 done
 

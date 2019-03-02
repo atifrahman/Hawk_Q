@@ -72,9 +72,11 @@ for f in *.fna.gz; do
 		
 	fi
 
+	rm *.fastq;
+
 	cd ..
 
 	rm *.fna;
-
+	
 done
 

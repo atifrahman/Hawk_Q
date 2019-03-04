@@ -58,7 +58,7 @@ for f in *.fna.gz; do
 
 		awk -f ${hawkDir}/countTotalKmer.awk ${OUTPREFIX}.kmers.hist.csv >> ${dir}/total_kmer_counts.txt
 
-		CUTOFF=1 
+		CUTOFF=0 
 		echo $CUTOFF > ${OUTPREFIX}_cutoff.csv
 
 
@@ -72,9 +72,11 @@ for f in *.fna.gz; do
 		
 	fi
 
+	rm *.fastq;
+
 	cd ..
 
 	rm *.fna;
-
+	
 done
 
